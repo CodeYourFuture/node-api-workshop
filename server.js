@@ -36,10 +36,14 @@ app.get("/students", function(req, res) {
 app.get("/albums", function(req, res) {
   res.send(albumsData);
 });
+
+//Finding/Filtering
 app.get("/albums/:albumId", function(req, res) {
   console.log(req.params.albumId);
   res.send(albumsData.find(result => result.albumId == req.params.albumId));
 });
+
+//Posting
 app.post("/postAlbum", function(req, res) {
   console.log("I am here to Post!");
   console.log(req.body);
@@ -47,6 +51,8 @@ app.post("/postAlbum", function(req, res) {
   albumsData.push(req.body);
   res.send("Success");
 });
+
+//Deleting
 app.delete("/albums/:albumId", function(req, res) {
   console.log(req.params.albumId);
   albumsData.splice(
@@ -54,6 +60,16 @@ app.delete("/albums/:albumId", function(req, res) {
     1
   );
   res.send(200);
+});
+
+//Updating
+app.put("/albums/:albumId", function(req, res) {
+  let newAlbum = albumsData.find(
+    result => result.albumId === req.params.albumId
+  );
+  newAlbum.artistName = "Rihana";
+  newAlbum.collectionName = "Umbrella";
+  res.send(201);
 });
 app.listen(3000, function() {
   console.log("server listening on port 3000!");
