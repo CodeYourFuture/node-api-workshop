@@ -47,6 +47,14 @@ app.post("/postAlbum", function(req, res) {
   albumsData.push(req.body);
   res.send("Success");
 });
+app.delete("/albums/:albumId", function(req, res) {
+  console.log(req.params.albumId);
+  albumsData.splice(
+    albumsData.findIndex(result => result.albumId === req.params.albumId),
+    1
+  );
+  res.send(200);
+});
 app.listen(3000, function() {
   console.log("server listening on port 3000!");
 });
