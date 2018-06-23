@@ -33,9 +33,9 @@ app.get("/", function(req, res) {
 app.get("/students", function(req, res) {
   res.send("There are 11 students today.");
 });
-app.get("/albums", function(req, res) {
-  res.send(albumsData);
-});
+// app.get("/albums", function(req, res) {
+//   res.send(albumsData);
+// });
 
 //Finding/Filtering
 app.get("/albums/:albumId", function(req, res) {
@@ -59,6 +59,17 @@ app.delete("/albums/:albumId", function(req, res) {
     albumsData.findIndex(result => result.albumId === req.params.albumId),
     1
   );
+  res.send(200);
+});
+
+app.get("/albums", function(req, res) {
+  console.log(req.query.gener);
+  res.send(
+    albumsData.filter(
+      result => result.primaryGenreName === req.query.gener || !req.query.gener
+    )
+  );
+
   res.send(200);
 });
 
